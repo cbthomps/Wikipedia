@@ -4,11 +4,8 @@
 @created on: Mon Jul 12 15:17:05 2021
 @author: Chris Thompson
 @course: INF 6050
-@university: Wayne State University
-@assignment: 
 
 @pythonVersion: 3.8
-@requiredModules:
     
 @description: This is a script to pick out a random Wikipedia page.
 """
@@ -18,7 +15,6 @@
 import requests
 from bs4 import BeautifulSoup
 import webbrowser
-import urllib
 import tkinter as tk
 #####################################
 #GLOBAL VARIABLES
@@ -67,13 +63,13 @@ class MainMenu(tk.Tk):
         self.entry6 = tk.Entry(self.frame, font = 'arial 10 bold', textvariable = self.body5, bg ='antiquewhite2',width = 75,)
         self.entry6.place(x=50, y = 380)
         self.frame.pack()
-    
+    #Function that finds an article at random from Wikipedia
     def RandomArticle(self):
         self.page = requests.get("https://en.wikipedia.org/wiki/Special:Random")
         self.soup = BeautifulSoup(self.page.content, 'html.parser')
         self.title = self.soup.find(class_ = "firstHeading").text
         self.url = 'https://en.wikipedia.org/wiki/%s' %self.title
-        
+        #This is what will be displayed for the user from the webpage
         self.pageTitle = self.soup.select('h1')[0].text
         self.firstParagraph = self.soup.select('p')[0].text
         self.firstLines = self.firstParagraph[0:75]
@@ -87,13 +83,14 @@ class MainMenu(tk.Tk):
         self.body3.set(self.thirdLines)
         self.body4.set(self.fourthLines)
         self.body5.set(self.fifthLines)
-        
+    #This function takes users to the webpage if they click the button    
     def ReadArticle(self):
         webbrowser.open(self.url)
 
 #####################################
 #USER-DEFINED FUNCTIONS
 #####################################
+#Establishes the graphical interface's size, title, and color
 def main():
     root = tk.Tk()
     root.geometry('700x700')
@@ -107,20 +104,3 @@ def main():
 #####################################
 if __name__ == "__main__":
     main() 
-    
-    
-    
-    '''
-    page = requests.get("https://en.wikipedia.org/wiki/Special:Random")
-    soup = BeautifulSoup(page.content, 'html.parser')
-    title = soup.find(class_ = "firstHeading").text
-    url = 'https://en.wikipedia.org/wiki/%s' %title
-    webbrowser.open(url)
-    
-    pageTitle = soup.select('h1')[0].text
-    firstParagraph = soup.select('p')[0].text
-    print(pageTitle)
-    print('\n')
-    print(firstParagraph)
-    print('\n')
-   '''
