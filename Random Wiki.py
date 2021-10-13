@@ -3,8 +3,6 @@
 """
 @created on: Mon Jul 12 15:17:05 2021
 @author: Chris Thompson
-@course: INF 6050
-
 @pythonVersion: 3.8
     
 @description: This is a script to pick out a random Wikipedia page.
